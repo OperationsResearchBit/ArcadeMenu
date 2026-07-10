@@ -1,14 +1,15 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Arcade Menu</title>
+    <title>Game Arcade Menu with Tracker</title>
     <style>
         :root {
             --bg-color: #1a252f;
             --card-bg: #2c3e50;
             --accent-color: #deb887;
+            --success-color: #2ecc71;
             --text-color: #ffffff;
             --text-muted: #bdc3c7;
         }
@@ -49,12 +50,24 @@
             color: var(--text-muted);
         }
 
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .main-layout {
+                grid-template-columns: 3fr 1fr;
+            }
+        }
+
         section {
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         section h2 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 1.5rem;
             border-left: 4px solid var(--accent-color);
             padding-left: 10px;
@@ -73,15 +86,14 @@
             border: 1px solid transparent;
             border-radius: 8px;
             padding: 1.5rem;
-            text-align: center;
             text-decoration: none;
             color: var(--text-color);
             transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 140px;
+            justify-content: space-between;
+            min-height: 150px;
+            position: relative;
         }
 
         .card:hover {
@@ -91,23 +103,96 @@
         }
 
         .card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+            margin-bottom: 0.25rem;
         }
 
         .card p {
             font-size: 0.85rem;
             color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        /* App section variations for clear visual hierarchy */
+        /* Lobby Count Pill Styles */
+        .lobby-badge {
+            align-self: flex-start;
+            background: rgba(46, 204, 113, 0.15);
+            color: var(--success-color);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .lobby-badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--success-color);
+        }
+
         .apps-grid .card {
             background-color: #243342;
-            min-height: 100px;
+            min-height: 110px;
         }
-        
-        .apps-grid .card h3 {
-            font-size: 1.05rem;
+
+        /* Achievement Tracker Panel */
+        .tracker-panel {
+            background-color: #222f3d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #2c3e50;
+            align-self: start;
+        }
+
+        .tracker-panel h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .achievement-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .achievement-item {
+            background: #1a252f;
+            padding: 0.75rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .achievement-item.unlocked {
+            opacity: 1;
+            border-left: 3px solid var(--success-color);
+        }
+
+        .achievement-icon {
+            font-size: 1.5rem;
+        }
+
+        .achievement-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .achievement-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -116,59 +201,167 @@
     <div class="container">
         <header>
             <h1>Arcade Dashboard</h1>
-            <p>Select a world to enter or a tool to launch</p>
+            <p>Select a world to enter or check your local achievements</p>
         </header>
 
-        <!-- Playable Games Section -->
-        <section>
-            <h2>Featured Games</h2>
-            <div class="grid">
-                <a href="/castle-go" class="card">
-                    <h3>Castle-Go</h3>
-                    <p>Strategy & conquest</p>
-                </a>
-                <a href="/alexandria-echoes" class="card">
-                    <h3>Alexandria: Echoes of Empire</h3>
-                    <p>City builder simulation</p>
-                </a>
-                <a href="/survival-rpg" class="card">
-                    <h3>Survival-RPG</h3>
-                    <p>Endure the wilderness</p>
-                </a>
-                <a href="/merge-high-kings" class="card">
-                    <h3>MergeHighKings</h3>
-                    <p>Auto-battle puzzle merge</p>
-                </a>
-                <a href="/go" class="card">
-                    <h3>Go</h3>
-                    <p>The classic game of stones</p>
-                </a>
-            </div>
-        </section>
+        <div class="main-layout">
+            <!-- Left Side: Games and Apps Menu -->
+            <main>
+                <!-- Playable Games Section -->
+                <section>
+                    <h2>Featured Games</h2>
+                    <div class="grid">
+                        <a href="/castle-go" class="card">
+                            <div>
+                                <h3>Castle-Go</h3>
+                                <p>Strategy & conquest</p>
+                            </div>
+                            <span class="lobby-badge" data-game="castle-go">0 active</span>
+                        </a>
+                        <a href="/alexandria-echoes" class="card">
+                            <div>
+                                <h3>Alexandria</h3>
+                                <p>Echoes of Empire builder</p>
+                            </div>
+                            <span class="lobby-badge" data-game="alexandria">0 active</span>
+                        </a>
+                        <a href="/survival-rpg" class="card">
+                            <div>
+                                <h3>Survival-RPG</h3>
+                                <p>Endure the wilderness</p>
+                            </div>
+                            <span class="lobby-badge" data-game="survival-rpg">0 active</span>
+                        </a>
+                        <a href="/merge-high-kings" class="card">
+                            <div>
+                                <h3>MergeHighKings</h3>
+                                <p>Auto-battle puzzle merge</p>
+                            </div>
+                            <span class="lobby-badge" data-game="merge">0 active</span>
+                        </a>
+                        <a href="/go" class="card">
+                            <div>
+                                <h3>Go</h3>
+                                <p>Classic game of stones</p>
+                            </div>
+                            <span class="lobby-badge" data-game="go">0 active</span>
+                        </a>
+                    </div>
+                </section>
 
-        <!-- Companion Apps / Other Projects Section -->
-        <section>
-            <h2>Game Tools & Apps</h2>
-            <div class="grid apps-grid">
-                <a href="/tftiq" class="card">
-                    <h3>TFTIQ</h3>
-                    <p>Tactics optimization</p>
-                </a>
-                <a href="/gamesmith-studio" class="card">
-                    <h3>GameSmithStudio</h3>
-                    <p>Developer toolkit</p>
-                </a>
-                <a href="/code-score" class="card">
-                    <h3>CodeScore</h3>
-                    <p>Performance metrics</p>
-                </a>
-                <a href="/beer-game" class="card">
-                    <h3>BeerGame</h3>
-                    <p>Supply chain simulator</p>
-                </a>
-            </div>
-        </section>
+                <!-- Companion Apps Section -->
+                <section>
+                    <h2>Game Tools & Apps</h2>
+                    <div class="grid apps-grid">
+                        <a href="/tftiq" class="card">
+                            <div>
+                                <h3>TFTIQ</h3>
+                                <p>Tactics optimization</p>
+                            </div>
+                        </a>
+                        <a href="/gamesmith-studio" class="card">
+                            <div>
+                                <h3>GameSmithStudio</h3>
+                                <p>Developer toolkit</p>
+                            </div>
+                        </a>
+                        <a href="/code-score" class="card">
+                            <div>
+                                <h3>CodeScore</h3>
+                                <p>Performance metrics</p>
+                            </div>
+                        </a>
+                        <a href="/beer-game" class="card">
+                            <div>
+                                <h3>BeerGame</h3>
+                                <p>Supply chain simulator</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Side: Sidebar Local Achievement Tracker -->
+            <aside class="tracker-panel">
+                <h2>Local Status</h2>
+                <ul class="achievement-list">
+                    <li class="achievement-item" id="ach-welcome">
+                        <span class="achievement-icon">👋</span>
+                        <div class="achievement-info">
+                            <h4>First Visit</h4>
+                            <p>Launched the dashboard</p>
+                        </div>
+                    </li>
+                    <li class="achievement-item" id="ach-gamer">
+                        <span class="achievement-icon">🕹️</span>
+                        <div class="achievement-info">
+                            <h4>Active Gamer</h4>
+                            <p>Played 3 or more games</p>
+                        </div>
+                    </li>
+                    <li class="achievement-item" id="ach-dev">
+                        <span class="achievement-icon">🛠️</span>
+                        <div class="achievement-info">
+                            <h4>Dev Inspector</h4>
+                            <p>Opened a companion app</p>
+                        </div>
+                    </li>
+                </ul>
+            </aside>
+        </div>
     </div>
 
+    <script>
+        // --- 1. SIMULATED LOBBY COUNTS ---
+        function updateLobbies() {
+            const badges = document.querySelectorAll('.lobby-badge');
+            badges.forEach(badge => {
+                // Generates random player count from 2 to 45 for demo purposes
+                const randomPlayers = Math.floor(Math.random() * 44) + 2;
+                badge.innerText = `${randomPlayers} playing`;
+            });
+        }
+
+        // Run on load and cycle player count variables every 10 seconds
+        updateLobbies();
+        setInterval(updateLobbies, 10000);
+
+        // --- 2. LOCAL ACHIEVEMENTS TRACKER SYSTEM ---
+        function unlockAchievement(id) {
+            localStorage.setItem(id, 'true');
+            const element = document.getElementById(id);
+            if (element) element.classList.add('unlocked');
+        }
+
+        function loadAchievements() {
+            const achievements = ['ach-welcome', 'ach-gamer', 'ach-dev'];
+            achievements.forEach(id => {
+                if (localStorage.getItem(id) === 'true') {
+                    const element = document.getElementById(id);
+                    if (element) element.classList.add('unlocked');
+                }
+            });
+        }
+
+        // Initialize state engine
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAchievements();
+            unlockAchievement('ach-welcome'); // Trigger automatic welcome achievement
+        });
+
+        // Bonus: Demo interactions (clicking cards unlocks achievements)
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Simulate playing a game
+                if (Math.random() > 0.6) {
+                    unlockAchievement('ach-gamer');
+                }
+                // Simulate opening a tool/app
+                if (card.closest('.apps-grid')) {
+                    unlockAchievement('ach-dev');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
