@@ -1,0 +1,174 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Arcade Menu</title>
+    <style>
+        :root {
+            --bg-color: #1a252f;
+            --card-bg: #2c3e50;
+            --accent-color: #deb887;
+            --text-color: #ffffff;
+            --text-muted: #bdc3c7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            color: var(--text-muted);
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 140px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* App section variations for clear visual hierarchy */
+        .apps-grid .card {
+            background-color: #243342;
+            min-height: 100px;
+        }
+        
+        .apps-grid .card h3 {
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Arcade Dashboard</h1>
+            <p>Select a world to enter or a tool to launch</p>
+        </header>
+
+        <!-- Playable Games Section -->
+        <section>
+            <h2>Featured Games</h2>
+            <div class="grid">
+                <a href="/castle-go" class="card">
+                    <h3>Castle-Go</h3>
+                    <p>Strategy & conquest</p>
+                </a>
+                <a href="/alexandria-echoes" class="card">
+                    <h3>Alexandria: Echoes of Empire</h3>
+                    <p>City builder simulation</p>
+                </a>
+                <a href="/survival-rpg" class="card">
+                    <h3>Survival-RPG</h3>
+                    <p>Endure the wilderness</p>
+                </a>
+                <a href="/merge-high-kings" class="card">
+                    <h3>MergeHighKings</h3>
+                    <p>Auto-battle puzzle merge</p>
+                </a>
+                <a href="/go" class="card">
+                    <h3>Go</h3>
+                    <p>The classic game of stones</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Companion Apps / Other Projects Section -->
+        <section>
+            <h2>Game Tools & Apps</h2>
+            <div class="grid apps-grid">
+                <a href="/tftiq" class="card">
+                    <h3>TFTIQ</h3>
+                    <p>Tactics optimization</p>
+                </a>
+                <a href="/gamesmith-studio" class="card">
+                    <h3>GameSmithStudio</h3>
+                    <p>Developer toolkit</p>
+                </a>
+                <a href="/code-score" class="card">
+                    <h3>CodeScore</h3>
+                    <p>Performance metrics</p>
+                </a>
+                <a href="/beer-game" class="card">
+                    <h3>BeerGame</h3>
+                    <p>Supply chain simulator</p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
